@@ -1,0 +1,27 @@
+{
+  "name": "wechat",
+  "version": "1.0.0",
+  "description": "微信公众号",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "koa": "^1.2.0",
+    "sha1": "^1.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yingyuk/wechat.git"
+  },
+  "author": "Yuk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yingyuk/wechat/issues"
+  },
+  "homepage": "https://github.com/yingyuk/wechat#readme"
+}
