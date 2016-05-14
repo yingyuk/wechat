@@ -1,12 +1,15 @@
 /*
  * @Author: Yuk
  * @Date:   2016-05-13 22:31:21
- * @Last Modified by:   Yuk
- * @Last Modified time: 2016-05-13 23:04:55
+ * @Last Modified by:   yingyuk
+ * @Last Modified time: 2016-05-14 20:57:20
  */
 
 'use strict';
 var xml2js = require('xml2js');
+var template = require('./template.js');
+
+
 
 exports.parseXMLAsync = function(xml) {
   return new Promise(function(resolve, reject) {
@@ -54,3 +57,22 @@ function formatMessage(result) {
 }
 
 exports.formatMessage = formatMessage;
+exports.tpl = function(content, message) {
+  var info = {};
+  var type = 'text';
+  var fromUserName = message.FromUserName;
+  var toUserName = message.ToUserName;
+  if (Array.isArray(content)) {
+    type = 'news';
+  }
+  type = content.type || type;
+  info = {
+    content: content,
+    createTime: (new Date()).getTime(),
+    msgType: type,
+    toUserName: fromUserName,
+    fromUserName: toUserName
+  };
+  return template.compiled(info);
+
+}

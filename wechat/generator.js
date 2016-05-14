@@ -1,8 +1,8 @@
 /*
  * @Author: Yuk
  * @Date:   2016-05-13 15:18:17
- * @Last Modified by:   Yuk
- * @Last Modified time: 2016-05-13 23:26:20
+ * @Last Modified by:   yingyuk
+ * @Last Modified time: 2016-05-14 21:56:47
  */
 
 'use strict';
@@ -13,7 +13,7 @@ var getRawBody = require('raw-body');
 var util = require('./util.js');
 var Wechat = require('./wechat');
 
-module.exports = function(options) {
+module.exports = function(options,handler) {
   var wechat = new Wechat(options);
   return function*(next) {
     var that = this;
@@ -24,8 +24,6 @@ module.exports = function(options) {
     var echostr = this.query.echostr;
     var str = [token, timestamp, nonce].sort().join('');
     var sha = sha1(str);
-
-    console.log('get post');
 
     if (this.method === 'GET') {
       if (sha === signature) {
@@ -46,27 +44,18 @@ module.exports = function(options) {
         limit: '1mb',
         encoding: this.charset
       });
+      // 格式转换;
+      console.log('data',data);
       var content = yield util.parseXMLAsync(data);
       console.log(content);
       var message = util.formatMessage(content.xml);
       console.log(message);
-      if (message.MsgType === 'event') {
-        if (message.Event === 'subscribe') {
-          var now = new Date().getTime();
-          that.status = 200;
-          that.type = 'application/xml';
-          var reply = '<xml>' +
-            '<ToUserName><![CDATA[' + message.FromUserName + ']]></ToUserName>' +
-            '<FromUserName><![CDATA[' + message.ToUserName + ']]></FromUserName>' +
-            '<CreateTime>' + now + '</CreateTime>' +
-            '<MsgType><![CDATA[text]]></MsgType>' +
-            '<Content><![CDATA[你好...]]></Content>' +
-            '</xml>';
-          console.log(reply);
-          that.body = reply;
-          return
-        }
-      }
+      this.weixin = message;
+
+      yield handler.call(this,next);
+
+      yield wechat.reply.call(this);
+
     }
   }
 }
