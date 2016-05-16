@@ -2,7 +2,7 @@
 * @Author: yingyuk
 * @Date:   2016-05-14 20:05:12
 * @Last Modified by:   Yuk
-* @Last Modified time: 2016-05-14 23:52:26
+* @Last Modified time: 2016-05-15 13:03:49
 */
 
 'use strict';
@@ -12,6 +12,7 @@ var sha1 = require('sha1');
 var util = require('./libs/util.js');
 var wechat_file = path.join(__dirname + '/config/wechat.txt');
 
+// 票据
 var config = {
   wechat: {
     // appID: 'wx319d986c900527d7',

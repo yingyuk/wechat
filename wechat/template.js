@@ -1,8 +1,8 @@
 /*
  * @Author: Yuk
  * @Date:   2016-05-14 18:54:07
- * @Last Modified by:   yingyuk
- * @Last Modified time: 2016-05-14 22:27:48
+ * @Last Modified by:   Yuk
+ * @Last Modified time: 2016-05-15 14:25:21
  */
 
 'use strict';
@@ -38,9 +38,9 @@ var tpl = heredoc(function() {
 		<Music>
 			<Title><![CDATA[<%= content.title %>]]></Title>
 			<Description><![CDATA[<%= content.description %>]]></Description>
-			<MusicUrl><![CDATA[<%= content.music_url %>]]></MusicUrl>
-			<HQMusicUrl><![CDATA[<%= content.hq_music_url %>]]></HQMusicUrl>
-			<ThumbMediaId><![CDATA[<%= content.mediaId %>]]></ThumbMediaId>
+			<MusicUrl><![CDATA[<%= content.musicUrl %>]]></MusicUrl>
+			<HQMusicUrl><![CDATA[<%= content.hqMusicUrl %>]]></HQMusicUrl>
+			<ThumbMediaId><![CDATA[<%= content.thumbMediaId %>]]></ThumbMediaId>
 		</Music>
 	<% } else if (msgType === 'news' ) { %>
 		<ArticleCount><%=content.length %></ArticleCount>
